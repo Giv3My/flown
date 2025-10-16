@@ -1,2 +1,2 @@
-export * from './register-page';
-export * from './register-credentials';
+export * from './register-page'
+export * from './pages'

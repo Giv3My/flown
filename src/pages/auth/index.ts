@@ -1,3 +1,3 @@
-export * from './auth-layout';
-export * from './login';
-export * from './register';
+export * from './auth-layout'
+export * from './login'
+export * from './register'

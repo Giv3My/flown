@@ -1,3 +1,5 @@
-export const RegisterPage = () => {
-  return <div>RegisterPage</div>;
-};
+import type { FC } from 'react'
+
+export const RegisterPage: FC = () => {
+  return <div>RegisterPage</div>
+}

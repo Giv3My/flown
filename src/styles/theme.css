@@ -1,0 +1,37 @@
+@custom-variant dark (&: where(.dark, .dark *));
+
+@theme inline {
+  /* Surface colors */
+  --color-surface-0: var(--surface-0);
+  --color-surface-1: var(--surface-1);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-surface-4: var(--surface-4);
+  --color-surface-5: var(--surface-5);
+  --color-surface-6: var(--surface-6);
+
+  /* Elevated colors */
+  --color-elevated-0: var(--elevated-0);
+  --color-elevated-1: var(--elevated-1);
+  --color-elevated-2: var(--elevated-2);
+  --color-elevated-3: var(--elevated-3);
+  --color-elevated-4: var(--elevated-4);
+  --color-elevated-5: var(--elevated-5);
+  --color-elevated-6: var(--elevated-6);
+
+  /* Accent colors */
+  --color-accent-0: var(--accent-0);
+  --color-accent-1: var(--accent-1);
+  --color-accent-2: var(--accent-2);
+  --color-accent-3: var(--accent-3);
+  --color-accent-4: var(--accent-4);
+  --color-accent-5: var(--accent-5);
+  --color-accent-6: var(--accent-6);
+
+  /* Semantic colors */
+  --color-text-title: var(--text-title);
+  --color-text-base: var(--text-base);
+  --color-text-faint: var(--text-faint);
+  --color-warn: var(--warn);
+  --color-alert: var(--alert);
+}

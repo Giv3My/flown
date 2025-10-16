@@ -1,4 +1,4 @@
-import { AUTH_ROUTES, PROTECTED_ROUTES, PUBLIC_ROUTES } from '@src/constants';
+import { AUTH_ROUTES, PROTECTED_ROUTES, PUBLIC_ROUTES } from '@src/constants'
 import {
   AuthLayout,
   HomePage,
@@ -7,8 +7,8 @@ import {
   NotFoundPage,
   RegisterCredentialsPage,
   RegisterPage,
-} from '@src/pages';
-import { type RouteObject } from 'react-router-dom';
+} from '@src/pages'
+import { type RouteObject } from 'react-router-dom'
 
 export const APP_ROUTES: RouteObject[] = [
   {
@@ -45,4 +45,4 @@ export const APP_ROUTES: RouteObject[] = [
     path: PUBLIC_ROUTES.ANY,
     element: <NotFoundPage />,
   },
-];
+]
