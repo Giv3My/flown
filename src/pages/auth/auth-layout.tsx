@@ -1,9 +1,10 @@
-import { Outlet } from 'react-router-dom';
+import type { FC } from 'react'
+import { Outlet } from 'react-router-dom'
 
-export const AuthLayout = () => {
+export const AuthLayout: FC = () => {
   return (
     <div>
       <Outlet />
     </div>
-  );
-};
+  )
+}

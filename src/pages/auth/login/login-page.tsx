@@ -1,3 +1,5 @@
-export const LoginPage = () => {
-  return <div>LoginPage</div>;
-};
+import type { FC } from 'react'
+
+export const LoginPage: FC = () => {
+  return <div>LoginPage</div>
+}
