@@ -5,5 +5,4 @@
 
 @import './variables.css';
 @import './theme.css';
-
-@custom-variant dark (&:is(.dark *));
+@import './layers/components.css';
