@@ -4,7 +4,7 @@ import type { Theme, ThemeProviderProps } from './types'
 
 export const ThemeProvider: FC<PropsWithChildren<ThemeProviderProps>> = ({
   children,
-  defaultTheme = 'light',
+  defaultTheme = 'system',
   storageKey = 'ui-theme',
   ...props
 }) => {

@@ -1,4 +1,4 @@
-import { AUTH_ROUTES, PROTECTED_ROUTES, PUBLIC_ROUTES } from '@src/constants'
+import { AUTH_ROUTES, PROTECTED_ROUTES, PUBLIC_ROUTES } from 'constants'
 import {
   AuthLayout,
   HomePage,
@@ -7,7 +7,7 @@ import {
   NotFoundPage,
   RegisterCredentialsPage,
   RegisterPage,
-} from '@src/pages'
+} from 'pages'
 import { type RouteObject } from 'react-router-dom'
 
 export const APP_ROUTES: RouteObject[] = [
