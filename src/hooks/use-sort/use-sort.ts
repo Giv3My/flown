@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { isDateLike } from './types'
-import type { SortOrder } from 'pages/main/home'
+import type { SortOrder } from 'types'
 
 export const useSort = <T>(items: T[], sortBy: keyof T, order: SortOrder) => {
   const sortedItems = useMemo(() => {

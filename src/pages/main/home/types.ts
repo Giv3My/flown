@@ -1,8 +1,6 @@
-import type { TaskStatus } from 'types'
+import type { SortOrder, TaskStatus } from 'types'
 
 export type SortBy = 'title' | 'status' | 'createdAt'
-
-export type SortOrder = 'asc' | 'desc'
 
 export interface SortOption {
   value: SortBy

@@ -12,7 +12,7 @@ interface CreateTaskFormProps {
 
 export const CreateTaskForm: FC<CreateTaskFormProps> = ({ handleCreateTask }) => {
   const form = useForm<CreateTaskFormValues>({
-    mode: 'onBlur',
+    mode: 'onSubmit',
     resolver: zodResolver(CreateTaskSchema),
     defaultValues: {
       title: '',
@@ -40,12 +40,14 @@ export const CreateTaskForm: FC<CreateTaskFormProps> = ({ handleCreateTask }) =>
             label="Title"
             placeholder="Task Title"
             error={form.formState.errors.title}
+            onClick={() => form.clearErrors('title')}
             {...form.register('title')}
           />
           <FormField
             label="Description"
             placeholder="Task Description"
             error={form.formState.errors.description}
+            onClick={() => form.clearErrors('description')}
             {...form.register('description')}
           />
           <Controller

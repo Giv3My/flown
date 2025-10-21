@@ -11,7 +11,7 @@ export const TaskList: FC<TaskListProps> = ({ tasks }) => {
     <div className="mt-5">
       <div className="grid grid-cols-3 gap-3">
         {tasks.map((task) => (
-          <TaskItem task={task} />
+          <TaskItem key={task.id} task={task} />
         ))}
       </div>
     </div>

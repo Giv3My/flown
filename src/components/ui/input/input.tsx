@@ -1,7 +1,7 @@
-import { type ComponentProps } from 'react'
+import { type ComponentProps, type FC } from 'react'
 import { cn } from 'lib/utils'
 
-export const Input = ({ className, type, ...props }: ComponentProps<'input'>) => {
+export const Input: FC<ComponentProps<'input'>> = ({ className, type, ...props }) => {
   return (
     <input
       type={type}
