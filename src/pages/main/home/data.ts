@@ -1,3 +1,4 @@
+import type { TaskStatus } from 'types'
 import type { SortBy, SortOption, StatusFilterValues } from 'pages/main/home'
 
 export const sortOptionsMap: Record<SortBy, SortOption> = {
@@ -15,9 +16,13 @@ export const sortOptionsMap: Record<SortBy, SortOption> = {
   },
 }
 
-export const statusFilterOptionsMap: Record<StatusFilterValues, string> = {
-  all: 'All',
+export const taskStatusMap: Record<TaskStatus, string> = {
   pending: 'Pending',
   in_progress: 'In progress',
   completed: 'Completed',
+}
+
+export const statusFilterOptionsMap: Record<StatusFilterValues, string> = {
+  all: 'All',
+  ...taskStatusMap,
 }

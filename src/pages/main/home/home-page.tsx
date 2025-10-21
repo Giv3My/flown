@@ -1,7 +1,11 @@
 import { useState, type ChangeEventHandler, type FC } from 'react'
+import { useFilter, useSort } from 'hooks'
 import { sortOptionsMap } from './data'
+import type { CreateTaskFormValues } from './components/create-task-form'
 import type { ActiveSortOption, ViewMode, SortBy, StatusFilterValues } from './types'
-import { Controls } from './components'
+import type { Task } from 'types'
+import { Controls, CreateTaskForm, TaskList } from './components'
+import { Modal } from 'components'
 
 export const HomePage: FC = () => {
   const [searchValue, setSearchValue] = useState('')
@@ -11,6 +15,14 @@ export const HomePage: FC = () => {
   })
   const [activeStatusFilterValue, setActiveStatusFilterValue] = useState<StatusFilterValues>('all')
   const [viewMode, setViewMode] = useState<ViewMode>('grid')
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [tasks, setTasks] = useState<Task[]>([])
+
+  const filteredTasks = useFilter(tasks, {
+    status: activeStatusFilterValue,
+    title: (value) => value.toLowerCase().includes(searchValue.toLocaleLowerCase()),
+  })
+  const sortedTasks = useSort(filteredTasks, activeSortOption.value, activeSortOption.order)
 
   const onSearchChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     setSearchValue(e.target.value)
@@ -34,6 +46,25 @@ export const HomePage: FC = () => {
     setViewMode(viewMode)
   }
 
+  const openModal = () => {
+    setIsModalOpen(true)
+  }
+
+  const closeModal = () => {
+    setIsModalOpen(false)
+  }
+
+  const handleCreateTask = (values: CreateTaskFormValues) => {
+    const newTask = {
+      ...values,
+      id: Date.now().toString(),
+      createdAt: new Date().toISOString(),
+    } as Task
+
+    setTasks((prev) => [...prev, newTask])
+    closeModal()
+  }
+
   return (
     <div>
       <Controls
@@ -45,7 +76,12 @@ export const HomePage: FC = () => {
         onStatusFilterValueChange={handleStatusFilterOptionChange}
         viewMode={viewMode}
         onViewModeChange={handleViewModeChange}
+        openModal={openModal}
       />
+      <TaskList tasks={sortedTasks} />
+      <Modal isOpen={isModalOpen} closeModal={closeModal}>
+        <CreateTaskForm handleCreateTask={handleCreateTask} />
+      </Modal>
     </div>
   )
 }

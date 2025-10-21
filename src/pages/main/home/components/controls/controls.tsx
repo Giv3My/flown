@@ -12,6 +12,7 @@ interface ControlsProps {
   onStatusFilterValueChange: (value: StatusFilterValues) => void
   viewMode: ViewMode
   onViewModeChange: (viewMode: ViewMode) => VoidFunction
+  openModal: VoidFunction
 }
 
 export const Controls: FC<ControlsProps> = ({
@@ -23,6 +24,7 @@ export const Controls: FC<ControlsProps> = ({
   onStatusFilterValueChange,
   viewMode,
   onViewModeChange,
+  openModal,
 }) => {
   return (
     <>
@@ -43,7 +45,7 @@ export const Controls: FC<ControlsProps> = ({
           <LayoutViewMode viewMode={viewMode} onViewModeChange={onViewModeChange} />
         </div>
         <div>
-          <Button>
+          <Button onClick={openModal}>
             <Typography>Create Task</Typography>
           </Button>
         </div>

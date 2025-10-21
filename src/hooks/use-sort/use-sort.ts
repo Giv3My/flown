@@ -1,5 +1,6 @@
-import type { SortOrder } from 'pages/main/home'
 import { useMemo } from 'react'
+import { isDateLike } from './types'
+import type { SortOrder } from 'pages/main/home'
 
 export const useSort = <T>(items: T[], sortBy: keyof T, order: SortOrder) => {
   const sortedItems = useMemo(() => {
@@ -13,15 +14,15 @@ export const useSort = <T>(items: T[], sortBy: keyof T, order: SortOrder) => {
 
       let comparison = 0
 
-      if (valA instanceof Date && valB instanceof Date) {
-        comparison = valA.getTime() > valB.getTime() ? 1 : -1
+      if (isDateLike(valA) && isDateLike(valB)) {
+        comparison = new Date(valA).getTime() > new Date(valB).getTime() ? 1 : -1
       } else if (typeof valA === 'string' && typeof valB === 'string') {
         comparison = valA.localeCompare(valB)
       } else {
         comparison = valA > valB ? 1 : -1
       }
 
-      return order === 'desc' ? comparison * -1 : comparison
+      return order === 'desc' ? -comparison : comparison
     })
   }, [items, sortBy, order])
 
