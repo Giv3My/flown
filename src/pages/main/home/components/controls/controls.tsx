@@ -25,7 +25,7 @@ export const Controls: FC<ControlsProps> = ({ viewMode, onViewModeChange, openMo
 
   useEffect(() => {
     setSearch(debouncedSearch)
-  }, [debouncedSearch])
+  }, [debouncedSearch, setSearch])
 
   const onSearchChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     setSearchValue(e.target.value)

@@ -21,7 +21,7 @@ export const useQueryString = <K extends string, T extends string = string>(
 
       setSearchParams(currentParams)
     },
-    [key, defaultValue, setSearchParams]
+    [key, setSearchParams]
   )
 
   return [value, setValue] as const
