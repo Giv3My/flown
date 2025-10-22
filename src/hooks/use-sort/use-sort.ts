@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { isDateLike } from './types'
+import { getComparator } from './utils'
 import type { SortOrder } from 'types'
 
 export const useSort = <T>(items: T[], sortBy: keyof T, order: SortOrder) => {
@@ -12,15 +12,8 @@ export const useSort = <T>(items: T[], sortBy: keyof T, order: SortOrder) => {
       if (!valB) return -1
       if (valA === valB) return 0
 
-      let comparison = 0
-
-      if (isDateLike(valA) && isDateLike(valB)) {
-        comparison = new Date(valA).getTime() > new Date(valB).getTime() ? 1 : -1
-      } else if (typeof valA === 'string' && typeof valB === 'string') {
-        comparison = valA.localeCompare(valB)
-      } else {
-        comparison = valA > valB ? 1 : -1
-      }
+      const comparator = getComparator(valA, valB)
+      const comparison = comparator(valA, valB)
 
       return order === 'desc' ? -comparison : comparison
     })
