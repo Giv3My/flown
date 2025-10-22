@@ -1,19 +1,10 @@
 import type { TaskStatus } from 'types'
-import type { SortBy, SortOption, StatusFilterValues } from 'pages/main/home'
+import type { SortBy, StatusFilterValues } from 'pages/main/home'
 
-export const sortOptionsMap: Record<SortBy, SortOption> = {
-  createdAt: {
-    value: 'createdAt',
-    label: 'Date',
-  },
-  title: {
-    value: 'title',
-    label: 'Title',
-  },
-  status: {
-    value: 'status',
-    label: 'Status',
-  },
+export const sortOptionsMap: Record<SortBy, string> = {
+  createdAt: 'Date',
+  title: 'Title',
+  status: 'Status',
 }
 
 export const taskStatusMap: Record<TaskStatus, string> = {

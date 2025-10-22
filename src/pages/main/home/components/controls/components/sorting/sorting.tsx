@@ -1,20 +1,22 @@
 import { useState, type FC } from 'react'
 import { cn } from 'lib/utils'
 import { sortOptionsArray } from './data'
-import type { ActiveSortOption, SortBy } from 'pages/main/home'
+import { sortOptionsMap, type SortBy } from 'pages/main/home'
+import type { SortOrder } from 'types'
 import { Button, Popover, PopoverContent, PopoverTrigger, Typography } from 'components'
 import { ArrowUp } from 'lucide-react'
 
 interface SortingProps {
-  activeSortOption: ActiveSortOption
-  onSortOptionChange: (value: SortBy) => void
+  sortBy: SortBy
+  order: SortOrder
+  onSortByChange: (value: SortBy) => void
 }
 
-export const Sorting: FC<SortingProps> = ({ activeSortOption, onSortOptionChange }) => {
+export const Sorting: FC<SortingProps> = ({ sortBy, order, onSortByChange }) => {
   const [open, setOpen] = useState(false)
 
-  const handleSortOptionChange = (value: SortBy) => () => {
-    onSortOptionChange(value)
+  const handleSortByChange = (value: SortBy) => () => {
+    onSortByChange(value)
     setOpen(false)
   }
 
@@ -26,11 +28,11 @@ export const Sorting: FC<SortingProps> = ({ activeSortOption, onSortOptionChange
     <Popover open={open} onOpenChange={toggleOpen}>
       <PopoverTrigger asChild>
         <Button variant="outline" className="gap-x-1">
-          <Typography>Sort by: {activeSortOption.label}</Typography>
+          <Typography>Sort by: {sortOptionsMap[sortBy]}</Typography>
           <span className="size-4">
             <ArrowUp
               className={cn('size-full transition-transform', {
-                'rotate-180': activeSortOption.order === 'desc',
+                'rotate-180': order === 'desc',
               })}
             />
           </span>
@@ -38,16 +40,16 @@ export const Sorting: FC<SortingProps> = ({ activeSortOption, onSortOptionChange
       </PopoverTrigger>
       <PopoverContent className="w-[150px] p-2">
         <div className="flex flex-col gap-y-2">
-          {sortOptionsArray.map((option) => (
+          {sortOptionsArray.map(([value, label]) => (
             <Button
-              key={option.value}
+              key={value}
               variant="outline"
               className={cn('border-none', {
-                'bg-surface-4': activeSortOption.value === option.value,
+                'bg-surface-4': sortBy === value,
               })}
-              onClick={handleSortOptionChange(option.value)}
+              onClick={handleSortByChange(value)}
             >
-              <Typography>{option.label}</Typography>
+              <Typography>{label}</Typography>
             </Button>
           ))}
         </div>
