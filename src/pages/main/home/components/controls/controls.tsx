@@ -1,31 +1,52 @@
-import { type ChangeEventHandler, type FC } from 'react'
-import type { ActiveSortOption, ViewMode, SortBy, StatusFilterValues } from 'pages/main/home'
+import { useEffect, useState, type ChangeEventHandler, type FC } from 'react'
+import { useDebounce, useQueryString } from 'hooks'
+import type { ViewMode, SortBy, StatusFilterValues, QueryKeys } from 'pages/main/home'
+import type { SortOrder } from 'types'
 import { LayoutViewMode, SearchInput, Sorting, Filtering } from './components'
 import { Button, Typography } from 'components'
 
 interface ControlsProps {
-  searchValue: string
-  onSearchChange: ChangeEventHandler<HTMLInputElement>
-  activeSortOption: ActiveSortOption
-  onSortOptionChange: (value: SortBy) => void
-  activeStatusFilterValue: StatusFilterValues
-  onStatusFilterValueChange: (value: StatusFilterValues) => void
   viewMode: ViewMode
   onViewModeChange: (viewMode: ViewMode) => VoidFunction
   openModal: VoidFunction
 }
 
-export const Controls: FC<ControlsProps> = ({
-  searchValue,
-  onSearchChange,
-  activeSortOption,
-  onSortOptionChange,
-  activeStatusFilterValue,
-  onStatusFilterValueChange,
-  viewMode,
-  onViewModeChange,
-  openModal,
-}) => {
+export const Controls: FC<ControlsProps> = ({ viewMode, onViewModeChange, openModal }) => {
+  const [search, setSearch] = useQueryString<QueryKeys>('search')
+  const [sortBy, setSortBy] = useQueryString<QueryKeys, SortBy>('sortBy', 'createdAt')
+  const [order, setOrder] = useQueryString<QueryKeys, SortOrder>('order', 'desc')
+  const [statusFilter, setStatusFilter] = useQueryString<QueryKeys, StatusFilterValues>(
+    'status',
+    'all'
+  )
+
+  const [searchValue, setSearchValue] = useState(search)
+  const debouncedSearch = useDebounce(searchValue, 300)
+
+  useEffect(() => {
+    setSearch(debouncedSearch)
+  }, [debouncedSearch, setSearch])
+
+  const onSearchChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    setSearchValue(e.target.value)
+  }
+
+  const onSortByChange = (value: SortBy) => {
+    setSortBy(value)
+
+    if (sortBy === value) {
+      const newOrder = order === 'desc' ? 'asc' : 'desc'
+      setOrder(newOrder)
+      return
+    }
+
+    setOrder('desc')
+  }
+
+  const onStatusFilterValueChange = (value: StatusFilterValues) => {
+    setStatusFilter(value)
+  }
+
   return (
     <>
       <div className="p-4 flex items-center gap-x-4 bg-surface-2 rounded-md">
@@ -33,12 +54,12 @@ export const Controls: FC<ControlsProps> = ({
           <SearchInput searchValue={searchValue} onSearchChange={onSearchChange} />
         </div>
         <div>
-          <Sorting activeSortOption={activeSortOption} onSortOptionChange={onSortOptionChange} />
+          <Sorting sortBy={sortBy} order={order} onSortByChange={onSortByChange} />
         </div>
         <div>
           <Filtering
-            activeStatusFilterValue={activeStatusFilterValue}
-            onStatusFilterValueChange={onStatusFilterValueChange}
+            activeStatusFilter={statusFilter}
+            onStatusFilterChange={onStatusFilterValueChange}
           />
         </div>
         <div>

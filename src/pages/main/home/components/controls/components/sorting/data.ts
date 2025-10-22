@@ -1,3 +1,3 @@
-import { sortOptionsMap } from 'pages/main/home'
+import { sortOptionsMap, type SortBy } from 'pages/main/home'
 
-export const sortOptionsArray = Object.values(sortOptionsMap)
+export const sortOptionsArray = Object.entries(sortOptionsMap) as [SortBy, string][]
