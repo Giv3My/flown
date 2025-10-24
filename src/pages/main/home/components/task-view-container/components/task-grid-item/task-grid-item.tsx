@@ -4,17 +4,22 @@ import { toast } from 'react-toastify'
 import { useModal } from 'hooks'
 import { PROTECTED_ROUTES } from 'constants'
 import type { Task } from 'types'
-import { ActionButton, TaskStatus } from './components'
+import { ActionButton } from './components'
+import { TaskStatus } from 'pages/main/home/components/task-view-container'
 import { ConfirmModal, Typography } from 'components'
 import { SquarePen, ReceiptText, SquareCheckBig, Trash2 } from 'lucide-react'
 
-interface TaskItemProps {
+interface TaskGridItemProps {
   task: Task
   handleCompleteTask: (id: string) => void
   handleDeleteTask: (id: string) => void
 }
 
-export const TaskItem: FC<TaskItemProps> = ({ task, handleCompleteTask, handleDeleteTask }) => {
+export const TaskGridItem: FC<TaskGridItemProps> = ({
+  task,
+  handleCompleteTask,
+  handleDeleteTask,
+}) => {
   const navigate = useNavigate()
 
   const [isCompleteConfirmOpen, handleOpenCompleteConfirm, closeCompleteConfirm] = useModal()

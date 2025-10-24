@@ -1,11 +1,13 @@
+import type { PropsWithChildren } from 'react'
+
 export type Theme = 'dark' | 'light' | 'system'
 
-export type ThemeContextState = {
+export interface ThemeContextState {
   theme: Theme
   setTheme: (theme: Theme) => void
 }
 
-export type ThemeProviderProps = {
+export interface ThemeProviderProps extends PropsWithChildren {
   defaultTheme?: Theme
   storageKey?: string
 }

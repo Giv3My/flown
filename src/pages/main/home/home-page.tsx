@@ -4,7 +4,7 @@ import { useFilter, useModal, useQueryString, useSort } from 'hooks'
 import type { CreateTaskFormValues } from './components/create-task-form'
 import { type ViewMode, type SortBy, type StatusFilterValues, type QueryKeys } from './types'
 import type { SortOrder, Task } from 'types'
-import { Controls, CreateTaskForm, TaskList } from './components'
+import { Controls, CreateTaskForm, TaskViewContainer } from './components'
 import { Modal } from 'components'
 
 export const HomePage: FC = () => {
@@ -46,18 +46,19 @@ export const HomePage: FC = () => {
     setTasks((prev) =>
       prev.map((task) => (task.id === id ? { ...task, status: 'completed' } : task))
     )
-    toast.success('Task was completed successfully.')
+    toast.success('Task was completed successfully')
   }
 
   const handleDeleteTask = (id: string) => {
     setTasks((prev) => prev.filter((task) => task.id !== id))
-    toast.success('Task was deleted successfully.')
+    toast.success('Task was deleted successfully')
   }
 
   return (
     <div>
       <Controls viewMode={viewMode} onViewModeChange={handleViewModeChange} openModal={openModal} />
-      <TaskList
+      <TaskViewContainer
+        viewMode={viewMode}
         tasks={sortedTasks}
         handleCompleteTask={handleCompleteTask}
         handleDeleteTask={handleDeleteTask}

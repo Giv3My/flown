@@ -1,8 +1,8 @@
-import { useEffect, useState, type FC, type PropsWithChildren } from 'react'
+import { useEffect, useState, type FC } from 'react'
 import { ThemeContext } from './theme-context'
 import type { Theme, ThemeProviderProps } from './types'
 
-export const ThemeProvider: FC<PropsWithChildren<ThemeProviderProps>> = ({
+export const ThemeProvider: FC<ThemeProviderProps> = ({
   children,
   defaultTheme = 'system',
   storageKey = 'ui-theme',

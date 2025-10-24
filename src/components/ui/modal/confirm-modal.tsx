@@ -1,4 +1,4 @@
-import { type FC, type PropsWithChildren } from 'react'
+import { type FC } from 'react'
 import type { ModalProps } from './types'
 import { Button, Modal, Typography } from 'components'
 
@@ -6,7 +6,7 @@ interface ConfirmModalProps extends ModalProps {
   handleConfirm: VoidFunction
 }
 
-export const ConfirmModal: FC<PropsWithChildren<ConfirmModalProps>> = ({
+export const ConfirmModal: FC<ConfirmModalProps> = ({
   children,
   isOpen,
   handleConfirm,
@@ -18,7 +18,7 @@ export const ConfirmModal: FC<PropsWithChildren<ConfirmModalProps>> = ({
   }
 
   return (
-    <Modal isOpen={isOpen} closeModal={closeModal}>
+    <Modal className="z-200" isOpen={isOpen} closeModal={closeModal}>
       <div className="h-full flex flex-col justify-between">
         <div className="grow">
           <Typography element="h3" className="text-text-title">
