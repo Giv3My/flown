@@ -4,15 +4,8 @@ import { toast } from 'react-toastify'
 import { useModal } from 'hooks'
 import { PROTECTED_ROUTES } from 'constants'
 import type { Task } from 'types'
-import { TaskStatus } from './components'
-import {
-  Button,
-  ConfirmModal,
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-  Typography,
-} from 'components'
+import { ActionButton, TaskStatus } from './components'
+import { ConfirmModal, Typography } from 'components'
 import { SquarePen, ReceiptText, SquareCheckBig, Trash2 } from 'lucide-react'
 
 interface TaskItemProps {
@@ -67,64 +60,28 @@ export const TaskItem: FC<TaskItemProps> = ({ task, handleCompleteTask, handleDe
         <TaskStatus status={task.status} />
       </div>
       <div className="flex items-center gap-x-2">
-        <div>
-          <Tooltip>
-            <TooltipTrigger>
-              <Button variant="outline" size="sm" className="p-1" onClick={onTaskEditClick}>
-                <span className="flex items-center justify-center">
-                  <SquarePen className="size-full" />
-                </span>
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>Edit task</TooltipContent>
-          </Tooltip>
-        </div>
-        <div>
-          <Tooltip>
-            <TooltipTrigger>
-              <Button variant="outline" size="sm" className="p-1" onClick={onTaskDetailsClick}>
-                <span className="flex items-center justify-center">
-                  <ReceiptText className="size-full" />
-                </span>
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>Open details</TooltipContent>
-          </Tooltip>
-        </div>
-        <div>
-          <Tooltip>
-            <TooltipTrigger>
-              <Button
-                variant="outline"
-                size="sm"
-                className="p-1 text-green-500 border-green-500 dark:text-green-300 dark:border-green-300"
-                onClick={openCompleteConfirm}
-              >
-                <span className="flex items-center justify-center">
-                  <SquareCheckBig className="size-full" />
-                </span>
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>Complete task</TooltipContent>
-          </Tooltip>
-        </div>
-        <div>
-          <Tooltip>
-            <TooltipTrigger>
-              <Button
-                variant="outline"
-                size="sm"
-                className="p-1 text-alert border-alert"
-                onClick={openDeleteConfirm}
-              >
-                <span className="flex items-center justify-center">
-                  <Trash2 className="size-full" />
-                </span>
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>Delete task</TooltipContent>
-          </Tooltip>
-        </div>
+        <ActionButton
+          icon={<SquarePen className="size-full" />}
+          tooltipText="Edit task"
+          onClick={onTaskEditClick}
+        />
+        <ActionButton
+          icon={<ReceiptText className="size-full" />}
+          tooltipText="Open details"
+          onClick={onTaskDetailsClick}
+        />
+        <ActionButton
+          className="text-green-500 border-green-500 dark:text-green-300 dark:border-green-300"
+          icon={<SquareCheckBig className="size-full" />}
+          tooltipText="Complete task"
+          onClick={openCompleteConfirm}
+        />
+        <ActionButton
+          className="text-alert border-alert"
+          icon={<Trash2 className="size-full" />}
+          tooltipText="Delete task"
+          onClick={openDeleteConfirm}
+        />
       </div>
       <ConfirmModal
         isOpen={isCompleteConfirmOpen}
