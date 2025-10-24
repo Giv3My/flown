@@ -1,5 +1,6 @@
 import { useState, type FC } from 'react'
-import { useFilter, useQueryString, useSort } from 'hooks'
+import { toast } from 'react-toastify'
+import { useFilter, useModal, useQueryString, useSort } from 'hooks'
 import type { CreateTaskFormValues } from './components/create-task-form'
 import { type ViewMode, type SortBy, type StatusFilterValues, type QueryKeys } from './types'
 import type { SortOrder, Task } from 'types'
@@ -12,11 +13,12 @@ export const HomePage: FC = () => {
   const [order] = useQueryString<QueryKeys, SortOrder>('order', 'desc')
   const [statusFilter] = useQueryString<QueryKeys, StatusFilterValues>('status', 'all')
 
+  const [isModalOpen, openModal, closeModal] = useModal()
+
+  const [tasks, setTasks] = useState<Task[]>([])
   const [viewMode, setViewMode] = useState<ViewMode>(
     () => (localStorage.getItem('task-list-view') as ViewMode) ?? 'grid'
   )
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const [tasks, setTasks] = useState<Task[]>([])
 
   const filteredTasks = useFilter(tasks, {
     status: statusFilter,
@@ -27,14 +29,6 @@ export const HomePage: FC = () => {
   const handleViewModeChange = (viewMode: ViewMode) => () => {
     setViewMode(viewMode)
     localStorage.setItem('task-list-view', viewMode)
-  }
-
-  const openModal = () => {
-    setIsModalOpen(true)
-  }
-
-  const closeModal = () => {
-    setIsModalOpen(false)
   }
 
   const handleCreateTask = (values: CreateTaskFormValues) => {
@@ -48,10 +42,26 @@ export const HomePage: FC = () => {
     closeModal()
   }
 
+  const handleCompleteTask = (id: string) => {
+    setTasks((prev) =>
+      prev.map((task) => (task.id === id ? { ...task, status: 'completed' } : task))
+    )
+    toast.success('Task was completed successfully.')
+  }
+
+  const handleDeleteTask = (id: string) => {
+    setTasks((prev) => prev.filter((task) => task.id !== id))
+    toast.success('Task was deleted successfully.')
+  }
+
   return (
     <div>
       <Controls viewMode={viewMode} onViewModeChange={handleViewModeChange} openModal={openModal} />
-      <TaskList tasks={sortedTasks} />
+      <TaskList
+        tasks={sortedTasks}
+        handleCompleteTask={handleCompleteTask}
+        handleDeleteTask={handleDeleteTask}
+      />
       <Modal isOpen={isModalOpen} closeModal={closeModal}>
         <CreateTaskForm handleCreateTask={handleCreateTask} />
       </Modal>

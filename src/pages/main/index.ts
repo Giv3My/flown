@@ -1,3 +1,5 @@
 export * from './main-layout'
 export * from './home'
+export * from './task'
+export * from './edit-task'
 export * from './not-found'

@@ -1,12 +1,14 @@
 import { AUTH_ROUTES, PROTECTED_ROUTES, PUBLIC_ROUTES } from 'constants'
 import {
   AuthLayout,
+  EditTaskPage,
   HomePage,
   LoginPage,
   MainLayout,
   NotFoundPage,
   RegisterCredentialsPage,
   RegisterPage,
+  TaskPage,
 } from 'pages'
 import { type RouteObject } from 'react-router-dom'
 
@@ -34,6 +36,14 @@ export const APP_ROUTES: RouteObject[] = [
       {
         path: PROTECTED_ROUTES.HOME,
         element: <HomePage />,
+      },
+      {
+        path: PROTECTED_ROUTES.TASK,
+        element: <TaskPage />,
+      },
+      {
+        path: PROTECTED_ROUTES.EDIT_TASK,
+        element: <EditTaskPage />,
       },
     ],
   },
