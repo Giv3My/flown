@@ -21,8 +21,8 @@ export const TaskListItem: FC<TaskListItemProps> = ({ task, handleSelectTaskId }
       <div className="basis-[30%]">
         <TaskStatus status={task.status} />
       </div>
-      <div className="grow">
-        <Typography element="h3" className="text-text-title">
+      <div className="w-[30%]">
+        <Typography element="h3" className="w-full text-text-title line-clamp-1 break-words">
           {task.title}
         </Typography>
       </div>

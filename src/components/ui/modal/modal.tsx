@@ -13,8 +13,7 @@ export const Modal: FC<ModalProps> = ({ children, className, isOpen, closeModal 
     return null
   }
 
-  const handleOverlayClick = (e: MouseEvent) => {
-    e.stopPropagation()
+  const handleOverlayClick = () => {
     closeModal()
   }
 

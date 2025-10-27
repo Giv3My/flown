@@ -1,4 +1,4 @@
-import { useState, type FC } from 'react'
+import { memo, useState, type FC } from 'react'
 import { useModal } from 'hooks'
 import type { Task } from 'types'
 import { TaskListItem } from './components'
@@ -11,42 +11,40 @@ interface TaskListViewProps {
   handleDeleteTask: (id: string) => void
 }
 
-export const TaskListView: FC<TaskListViewProps> = ({
-  tasks,
-  handleCompleteTask,
-  handleDeleteTask,
-}) => {
-  const [selectedTaskId, setSelectedTaskId] = useState('')
-  const [isOpen, openModal, closeModal] = useModal()
+export const TaskListView: FC<TaskListViewProps> = memo(
+  ({ tasks, handleCompleteTask, handleDeleteTask }) => {
+    const [selectedTaskId, setSelectedTaskId] = useState('')
+    const [isOpen, openModal, closeModal] = useModal()
 
-  const selectedTask = tasks.find((task) => task.id === selectedTaskId)
+    const selectedTask = tasks.find((task) => task.id === selectedTaskId)
 
-  const handleSelectTaskId = (id: string) => {
-    setSelectedTaskId(id)
-    openModal()
-  }
+    const handleSelectTaskId = (id: string) => {
+      setSelectedTaskId(id)
+      openModal()
+    }
 
-  const onCloseModal = () => {
-    setSelectedTaskId('')
-    closeModal()
-  }
+    const onCloseModal = () => {
+      setSelectedTaskId('')
+      closeModal()
+    }
 
-  return (
-    <div>
-      <div className="flex flex-col gap-y-3">
-        {tasks.map((task) => (
-          <TaskListItem key={task.id} task={task} handleSelectTaskId={handleSelectTaskId} />
-        ))}
+    return (
+      <div>
+        <div className="flex flex-col gap-y-3">
+          {tasks.map((task) => (
+            <TaskListItem key={task.id} task={task} handleSelectTaskId={handleSelectTaskId} />
+          ))}
+        </div>
+        {selectedTask && (
+          <Modal isOpen={isOpen} closeModal={onCloseModal}>
+            <TaskGridItem
+              task={selectedTask}
+              handleCompleteTask={handleCompleteTask}
+              handleDeleteTask={handleDeleteTask}
+            />
+          </Modal>
+        )}
       </div>
-      {selectedTask && (
-        <Modal isOpen={isOpen} closeModal={onCloseModal}>
-          <TaskGridItem
-            task={selectedTask}
-            handleCompleteTask={handleCompleteTask}
-            handleDeleteTask={handleDeleteTask}
-          />
-        </Modal>
-      )}
-    </div>
-  )
-}
+    )
+  }
+)
