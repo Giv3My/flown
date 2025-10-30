@@ -11,7 +11,7 @@ interface ActionButtonProps extends ComponentProps<'button'> {
 export const ActionButton: FC<ActionButtonProps> = ({ className, icon, tooltipText, onClick }) => {
   return (
     <Tooltip>
-      <TooltipTrigger>
+      <TooltipTrigger asChild>
         <Button variant="outline" size="sm" className={cn('p-1', className)} onClick={onClick}>
           <span className="flex items-center justify-center">{icon}</span>
         </Button>

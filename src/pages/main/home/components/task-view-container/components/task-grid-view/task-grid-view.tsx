@@ -1,19 +1,19 @@
-import type { FC } from 'react'
+import { memo, type FC } from 'react'
 import type { Task } from 'types'
-import { TaskItem } from './components'
+import { TaskGridItem } from 'pages/main/home/components/task-view-container'
 
-interface TaskListProps {
+interface TaskGridViewProps {
   tasks: Task[]
   handleCompleteTask: (id: string) => void
   handleDeleteTask: (id: string) => void
 }
 
-export const TaskList: FC<TaskListProps> = ({ tasks, handleCompleteTask, handleDeleteTask }) => {
-  return (
-    <div className="mt-5">
+export const TaskGridView: FC<TaskGridViewProps> = memo(
+  ({ tasks, handleCompleteTask, handleDeleteTask }) => {
+    return (
       <div className="grid grid-cols-3 gap-3">
         {tasks.map((task) => (
-          <TaskItem
+          <TaskGridItem
             key={task.id}
             task={task}
             handleCompleteTask={handleCompleteTask}
@@ -21,6 +21,6 @@ export const TaskList: FC<TaskListProps> = ({ tasks, handleCompleteTask, handleD
           />
         ))}
       </div>
-    </div>
-  )
-}
+    )
+  }
+)

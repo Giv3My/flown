@@ -8,9 +8,9 @@ export const sortOptionsMap: Record<SortBy, string> = {
 }
 
 export const taskStatusMap: Record<TaskStatus, string> = {
-  pending: 'Pending',
-  in_progress: 'In progress',
-  completed: 'Completed',
+  pending: 'To Do',
+  in_progress: 'In Progress',
+  completed: 'Done',
 }
 
 export const statusFilterOptionsMap: Record<StatusFilterValues, string> = {
